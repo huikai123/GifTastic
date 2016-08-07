@@ -45,7 +45,7 @@ $(".buttonGroup").on('click','.search', function(){
 	//retieve the attribute "name" of the button, store it as variable
 	var p = $(this).data('name');
 	//store API endpoint, search the text input, limits 10 images
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + p + "&api_key=dc6zaTOxFJmzC&limit=10";
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + p + "&api_key=dc6zaTOxFJmzC&limit=10";
 
 	console.log("p: ", p);
 	// use ajax to GET the queryUrl
