@@ -40,7 +40,7 @@ $(".btn").on('click',function(){
 	return false;
 })
 
-//on click event for buttons in the array, call displayGIF function
+//on click event for buttons in the array, call function
 $(".buttonGroup").on('click','.search', function(){
 	//retieve the attribute "name" of the button, store it as variable
 	var p = $(this).data('name');
@@ -69,22 +69,26 @@ $(".buttonGroup").on('click','.search', function(){
                     p.appendTo(gifDiv);
                     //create image with multiple attribute
                     var animalImage = $('<img>')
+                    	//add class name called image
                     	.addClass('image')
+                    	// set up event listner called gifState
                     	.on('click',gifState)
-                    	.attr('src', results[i].images.fixed_height_still.url)
+                    	//
+                    	.attr('src', results[i].images.fixed_height.url)
                     	.attr('data-animate',results[i].images.fixed_height.url)
                     	.attr('data-state',"still")
                     	.attr('data-still',results[i].images.fixed_height_still.url);
-
+                    	console.log("images: ", animalImage);
                     
                     //add images to the div
                     animalImage.append(gifDiv);
-
-                    $('.result').prepend(gifDiv);
+                    //add gifDiv to the HTML result element
+                    $('.result').append(gifDiv);
     }
 });
 
 });
+	//change state 'still' or 'animate'
 	function gifState(){
  	var state = $(this).data('state');
  		console.log("this: ", this);
