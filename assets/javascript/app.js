@@ -74,7 +74,7 @@ $(".buttonGroup").on('click','.search', function(){
                     	// set up event listner called gifState
                     	.on('click',gifState)
                     	//
-                    	.attr('src', results[i].images.fixed_height.url)
+                    	.attr('src', results[i].images.fixed_height_still.url)
                     	.attr('data-animate',results[i].images.fixed_height.url)
                     	.attr('data-state',"still")
                     	.attr('data-still',results[i].images.fixed_height_still.url);
