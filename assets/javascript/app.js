@@ -81,7 +81,7 @@ $(".buttonGroup").on('click','.search', function(){
                     	console.log("images: ", animalImage);
                     
                     //add images to the div
-                    animalImage.append(gifDiv);
+                    animalImage.appendTo(gifDiv);
                     //add gifDiv to the HTML result element
                     $('.result').append(gifDiv);
     }
