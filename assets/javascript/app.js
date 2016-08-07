@@ -1,8 +1,8 @@
 $(document).ready(function(){
 
 //declare arrays
-var topics = ['dogs','cats','rabbits','bears',
-'monkeys','pandas','sheep','pigs','tigers','penguin'];
+var topics = ['dog','cat','rabbit','bear',
+'monkey','panda','sheep','pig','tiger','penguin'];
 //event listner
 function btn_display(){
 	//clear the previous one before append
@@ -40,11 +40,11 @@ $(".btn").on('click',function(){
 	return false;
 })
 
-//on click event for buttons in the array
+//on click event for buttons in the array, call displayGIF function
 $(".buttonGroup").on('click','.search', function(){
-	//
+	//retieve the attribute "name" of the button, store it as variable
 	var p = $(this).data('name');
-	//store API endpoint
+	//store API endpoint, search the text input, limits 10 images
 	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + p + "&api_key=dc6zaTOxFJmzC&limit=10";
 
 	console.log("p: ", p);
@@ -52,25 +52,42 @@ $(".buttonGroup").on('click','.search', function(){
 	$.ajax({url: queryURL, method: 'GET'})
 		// callback that fires on success	
 		.done(function(response) {
+			//replace the images by clicking another button
+			$('.result').empty();
+			// store the images data as a variable
 			var results = response.data;
-
+			// loop through all 10 images that are displayed
 			for (var i = 0; i < results.length; i++) {
-                    var gifDiv = $('<div class="item">')
-
+                    //Insert a <div>
+                    var gifDiv = $('<div>');
+                    //Get the images' rating from data
                     var rating = results[i].rating;
-
+                    //Insert a paragragh to display rating
                     var p = $('<p>').text("Rating: " + rating);
 
-                    var animalImage = $('<img>');
-                    animalImage.attr('src', results[i].images.fixed_height.url);
+                    //add rating to the div
+                    p.appendTo(gifDiv);
+                    //create image with multiple attribute
+                    var animalImage = $('<img>')
+                    	.addClass('image')
+                    	.on('click',gifState)
+                    	.attr('src', results[i].images.fixed_height_still.url)
+                    	.attr('data-animate',results[i].images.fixed_height.url)
+                    	.attr('data-state',"still")
+                    	.attr('data-still',results[i].images.fixed_height_still.url);
 
-                    gifDiv.prepend(p)
-                    gifDiv.append(animalImage)
+                    
+                    //add images to the div
+                    animalImage.append(gifDiv);
 
                     $('.result').prepend(gifDiv);
+    }
+});
 
+});
+	function gifState(){
  	var state = $(this).data('state');
- 		console.log("this", this);
+ 		console.log("this: ", this);
         if ('still' == state) {
               console.log('still');
               $(this).data('state', 'animate').attr('src', $(this).data('animate'));
@@ -79,11 +96,10 @@ $(".buttonGroup").on('click','.search', function(){
               console.log('animate');
               $(this).data('state', 'still').attr('src', $(this).data('still'))
           }
-                
+	
+}
 
-	}
+//});
+
 });
 
-});
-
-})
