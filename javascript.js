@@ -68,9 +68,22 @@ $(".buttonGroup").on('click','.search', function(){
                     gifDiv.append(animalImage)
 
                     $('.result').prepend(gifDiv);
-                }
 
-	});
+ 	var state = $(this).data('state');
+ 		console.log("this", this);
+        if ('still' == state) {
+              console.log('still');
+              $(this).data('state', 'animate').attr('src', $(this).data('animate'));
+
+          } else {
+              console.log('animate');
+              $(this).data('state', 'still').attr('src', $(this).data('still'))
+          }
+                
+
+	}
+});
+
 });
 
 })
